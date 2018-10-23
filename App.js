@@ -1,21 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
-  }
-}
+import {StackNavigator} from 'react-navigation';
+import  HomeScreen  from "./components/Home/HomeScreen";
+import SearchTabNavigationScreen from './components/Search/SearchTabNavigationScreen';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+const App = StackNavigator({
+  HomeScreen:{screen: HomeScreen},
+  SearchScreen:{screen: SearchTabNavigationScreen}
+},{
+  initialRouteName:"HomeScreen"
+})
+
+export default App;
