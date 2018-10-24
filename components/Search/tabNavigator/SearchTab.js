@@ -14,8 +14,50 @@ export default class SearchTab extends React.Component {
   state = {
     searchCity: "",
     cityFound: false,
-    cityWeatherData: {}
+    cityWeatherData: {},
+    latitude: 0,
+    longitude: 0,
+    isLatitudeLongitude: false,
+    state
   };
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        const query =
+          "http://api.openweathermap.org/data/2.5/weather?lat=" +
+          { lat } +
+          "&lon=" +
+          { lon } +
+          "APPID=1c408c0ea87e20e7a5ec78ed4b74b616&units=metric";
+
+        axios
+          .get(query)
+          .then(response => {
+            console.log(response.request._response);
+            console.log("**************************************");
+
+            this.setState({ cityWeatherData: response.request._response });
+          })
+          .catch(error => {
+            this.setState({
+              cityFound: false,
+              isLatitudeLongitude: true,
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            });
+          });
+      },
+      error => {
+        this.setState({
+          isLatitudeLongitude: false
+        });
+      }
+    );
+  }
 
   citySearch = () => {
     Keyboard.dismiss();
@@ -26,20 +68,22 @@ export default class SearchTab extends React.Component {
       citySearch +
       "&appId=1c408c0ea87e20e7a5ec78ed4b74b616&units=metric";
 
-    axios.get(query).then(response => {
-      console.log(response.request._response);
-      console.log("**************************************");
+    axios
+      .get(query)
+      .then(response => {
+        console.log(response.request._response);
+        console.log("**************************************");
 
-      this.setState({cityWeatherData:response.request._response});
-      
+        this.setState({ cityWeatherData: response.request._response });
 
-      // const weather = response.request._response.weather ? response.request._response.weather: false ;
-      // const main = response.request._response.main ? response.request._response.main: false;
-      // const wind = response.request._response.wind ? response.request._response.wind: false ;
-      // const sys = response.request._response.sys? response.request._response.sys: false;
-    }).catch((error) => {
-      this.setState({cityFound:false});
-    });
+        // const weather = response.request._response.weather ? response.request._response.weather: false ;
+        // const main = response.request._response.main ? response.request._response.main: false;
+        // const wind = response.request._response.wind ? response.request._response.wind: false ;
+        // const sys = response.request._response.sys? response.request._response.sys: false;
+      })
+      .catch(error => {
+        this.setState({ cityFound: false });
+      });
 
     // Data
     const data = {
@@ -78,14 +122,12 @@ export default class SearchTab extends React.Component {
   };
 
   renderContent = () => {
-
-    if(this.state.cityWeatherData){
-
-      return <WeatherShow data={this.state.cityWeatherData}/>
-    }else{
-      alert("Sorry! No city exist with this name. ");
+    if (this.state.cityWeatherData) {
+      return <WeatherShow data={this.state.cityWeatherData} />;
+    } else {
+      alert("Sorry! No city exist with this name.");
     }
-  }
+  };
 
   render() {
     return (
@@ -95,10 +137,19 @@ export default class SearchTab extends React.Component {
           onChangeText={searchCity => this.setState({ searchCity })}
           citySearch={this.citySearch}
         />
-        <Content>
+        <Content>{this.renderContent()}</Content>
 
-          {this.renderContent()}
-        </Content>
+        {this.state.isLatitudeLongitude ? null : (
+          <Text
+            style={{
+              alignSelf: "center",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            {"Error Getting Weather Condtions"}
+          </Text>
+        )}
       </Container>
     );
   }
