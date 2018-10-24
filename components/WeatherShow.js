@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { StackNavigator } from "react-navigation";
 import { Button } from "native-base";
 
-export default class HomeScreen extends React.Component {
+export default class WeatherShow extends React.Component {
   
   static navigationOptions = {
     header:null

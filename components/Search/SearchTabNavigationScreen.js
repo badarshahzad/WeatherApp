@@ -20,7 +20,11 @@ const SearchTabNavigator = createBottomTabNavigator({
           <Button
             vertical
             // active={props.navgationState.index === 0}
-            onPress={() => props.navigation.navigate("SearchTab")}
+
+            onPress={() => {
+              props.navigation.navigate("SearchTab")
+              
+            }}
           >
             <Icon name="beer" />
             <Text>Search</Text>
@@ -31,7 +35,7 @@ const SearchTabNavigator = createBottomTabNavigator({
             // active={navgationState.index === 1}
             onPress={() => props.navigation.navigate("FavouritesTab")}
           >
-            <Icon name="Star" />
+            <Icon name="star" type="Feather" />
             <Text>Favourites</Text>
           </Button>
         </FooterTab>
