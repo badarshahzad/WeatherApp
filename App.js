@@ -90,8 +90,9 @@ export default class App extends React.Component {
   render() {
     return (
       <Container>
-        <Header />
+        <Header style={{height:18, backgroundColor:'#fefefe'}}/>
         <SearchHeader
+         
           value={this.state.searchCity}
           onChangeText={searchCity => this.setState({ searchCity })}
           citySearch={this.citySearch}

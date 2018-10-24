@@ -1,62 +1,61 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-
+import PropTypes from "prop-types";
 import { StackNavigator } from "react-navigation";
 import { Button } from "native-base";
-import PropTypes from 'prop-types';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export  const weatherConditions = {
-    Rain: {
-      color: '#005BEA',
-      title: 'Raining',
-      subtitle: 'Get a cup of coffee',
-      icon: 'weather-rainy'
-    },
-    Clear: {
-      color: '#f7b733',
-      title: 'So Sunny',
-      subtitle: 'It is hurting my eyes',
-      icon: 'weather-sunny'
-    },
-    Thunderstorm: {
-      color: '#616161',
-      title: 'A Storm is coming',
-      subtitle: 'Because Gods are angry',
-      icon: 'weather-lightning'
-    },
-    Clouds: {
-      color: '#1F1C2C',
-      title: 'Clouds',
-      subtitle: 'Everywhere',
-      icon: 'weather-cloudy'
-    },
-  
-    Snow: {
-      color: '#00d2ff',
-      title: 'Snow',
-      subtitle: 'Get out and build a snowman for me',
-      icon: 'weather-snowy'
-    },
-    Drizzle: {
-      color: '#076585',
-      title: 'Drizzle',
-      subtitle: 'Partially raining...',
-      icon: 'weather-hail'
-    },
-    Haze: {
-      color: '#66A6FF',
-      title: 'Haze',
-      subtitle: 'Another name for Partial Raining',
-      icon: 'weather-hail'
-    },
-    Mist: {
-      color: '#3CD3AD',
-      title: 'Mist',
-      subtitle: "Don't roam in forests!",
-      icon: 'weather-fog'
-    }
-  };
+export const weatherConditions = {
+  Rain: {
+    color: "#005BEA",
+    title: "Raining",
+    subtitle: "Get a cup of coffee",
+    icon: "weather-rainy"
+  },
+  Clear: {
+    color: "#f7b733",
+    title: "So Sunny",
+    subtitle: "It is hurting my eyes",
+    icon: "weather-sunny"
+  },
+  Thunderstorm: {
+    color: "#616161",
+    title: "A Storm is coming",
+    subtitle: "Because Gods are angry",
+    icon: "weather-lightning"
+  },
+  Clouds: {
+    color: "#1F1C2C",
+    title: "Clouds",
+    subtitle: "Everywhere",
+    icon: "weather-cloudy"
+  },
+
+  Snow: {
+    color: "#00d2ff",
+    title: "Snow",
+    subtitle: "Get out and build a snowman for me",
+    icon: "weather-snowy"
+  },
+  Drizzle: {
+    color: "#076585",
+    title: "Drizzle",
+    subtitle: "Partially raining...",
+    icon: "weather-hail"
+  },
+  Haze: {
+    color: "#66A6FF",
+    title: "Haze",
+    subtitle: "Another name for Partial Raining",
+    icon: "weather-hail"
+  },
+  Mist: {
+    color: "#3CD3AD",
+    title: "Mist",
+    subtitle: "Don't roam in forests!",
+    icon: "weather-fog"
+  }
+};
 
 class WeatherShow extends React.Component {
   render() {
@@ -64,22 +63,45 @@ class WeatherShow extends React.Component {
       <View
         style={[
           styles.weatherContainer,
-          { backgroundColor:  weatherConditions[this.props.weather].color }
+          { flex: 1, flexDirection: "row" },
+          {
+            borderWidth: 0.5,
+            borderRadius: 4,
+            borderColor: "#ddd",
+            borderBottomWidth: 0,
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.8,
+            shadowRadius: 2,
+            elevation: 1,
+            alignSelf: "baseline",
+            padding: 8,
+            margin:8
+          },{ backgroundColor: weatherConditions[this.props.weather].color }
         ]}
       >
-        <View style={styles.headerContainer}>
-          <MaterialCommunityIcons
-            size={72}
-            name={weatherConditions[this.props.weather].icon}
-            color={"#fff"}
-          />
-          <Text style={styles.tempText}>{this.props.temperature}˚</Text>
-        </View>
-        <View style={styles.bodyContainer}>
-          <Text style={styles.title}>{weatherConditions[this.props.weather].title}</Text>
-          <Text style={styles.subtitle}>
-            {weatherConditions[this.props.weather].subtitle}
-          </Text>
+        <View
+          style={[
+            styles.weatherContainer,
+            { backgroundColor: weatherConditions[this.props.weather].color }
+          ]}
+        >
+          <View style={styles.headerContainer}>
+            <MaterialCommunityIcons
+              size={72}
+              name={weatherConditions[this.props.weather].icon}
+              color={"#fff"}
+            />
+            <Text style={styles.tempText}>{this.props.temperature}˚</Text>
+          </View>
+          <View style={styles.bodyContainer}>
+            <Text style={styles.title}>
+              {weatherConditions[this.props.weather].title}
+            </Text>
+            <Text style={styles.subtitle}>
+              {weatherConditions[this.props.weather].subtitle}
+            </Text>
+          </View>
         </View>
       </View>
     );

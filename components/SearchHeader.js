@@ -7,18 +7,21 @@ export default class SearchHeader extends React.Component {
   render() {
     return (
       <Header
-        style={{ height: 40, justifyContent: "center", alignItems: "center" }}
+        style={{ justifyContent: "center", alignItems: "center", marginBottom:16,
+       backgroundColor:'#fefefe'  }}
         searchBar
         rounded
       >
-        <Input
-          style={{ backgroundColor: "white" }}
-          placeholder={"Enter city name"}
-          onChangeText={this.props.onChangeText}
-          returnKeyType="search"
-          onSubmitEditing={this.props.citySearch}
-        />
-        <Icon ios="ios-search" android="md-search" />
+
+        <Item>
+            <Icon active name="search" />
+            <Input placeholder="Search your city weather" 
+            onChangeText={this.props.onChangeText}
+            returnKeyType="search"
+                      onSubmitEditing={this.props.citySearch}/>
+          </Item>
+        
+        {/* <Icon ios="ios-search" android="md-search" /> */}
       </Header>
     );
   }
